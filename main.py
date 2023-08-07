@@ -4,7 +4,7 @@ import transformers
 import gradio as gr
 
 assert (
-    "LlamaTokenizer" in transformers._import_structure["models.llama"]
+        "LlamaTokenizer" in transformers._import_structure["models.llama"]
 ), "LLaMA is now in HuggingFace's main branch.\nPlease reinstall it: pip uninstall transformers && pip install git+https://github.com/huggingface/transformers.git"
 from transformers import LlamaTokenizer, LlamaForCausalLM, GenerationConfig
 
@@ -71,6 +71,7 @@ def generate_prompt(instruction, input=None):
 {instruction}
 ### Response:"""
 
+
 if device != "cpu":
     model.half()
 model.eval()
@@ -79,14 +80,14 @@ if torch.__version__ >= "2":
 
 
 def evaluate(
-    instruction,
-    input=None,
-    temperature=0.1,
-    top_p=0.75,
-    top_k=40,
-    num_beams=4,
-    max_new_tokens=128,
-    **kwargs,
+        instruction,
+        input=None,
+        temperature=0.1,
+        top_p=0.75,
+        top_k=40,
+        num_beams=4,
+        max_new_tokens=128,
+        **kwargs,
 ):
     prompt = generate_prompt(instruction, input)
     inputs = tokenizer(prompt, return_tensors="pt")
